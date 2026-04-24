@@ -1,4 +1,4 @@
-# Node Hierarchy Processor 🚀
+# Node Hierarchy Processor (GraphInsights) 🚀
 
 [![Next.js](https://img.shields.io/badge/Next.js-Black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
@@ -7,7 +7,7 @@
 
 > **SRM Full Stack Engineering Challenge Submission** > **Role:** Full Stack Engineering Candidate  
 > **Author:** SHREYANSH KUMAR 
-> **Live Demo:** [Insert Link to Vercel/Netlify/Render if you deployed it, or remove this line]
+> **Live Demo:** https://graph-insights.vercel.app/
 
 ---
 
