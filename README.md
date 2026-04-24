@@ -1,172 +1,79 @@
-🚀 BFHL Full Stack Challenge
-An end-to-end full-stack application built for the SRM Full Stack Engineering Challenge. This project features a robust REST API capable of processing complex hierarchical node relationships, detecting cycles, and calculating tree depths, paired with a sleek, dark-themed frontend for data visualization.
-+1
+# Node Hierarchy Processor 🚀
 
-✨ Features
-🛠️ Backend API
+[![Next.js](https://img.shields.io/badge/Next.js-Black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-Endpoint: Built to handle requests at POST /bfhl.
+> **SRM Full Stack Engineering Challenge Submission** > **Role:** Full Stack Engineering Candidate  
+> **Author:** SHREYANSH KUMAR 
+> **Live Demo:** [Insert Link to Vercel/Netlify/Render if you deployed it, or remove this line]
 
+---
 
-Graph Construction: Builds adjacency lists from an array of $X->Y$ edge strings.
+## 📖 Table of Contents
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Architecture & Tech Stack](#-architecture--tech-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Usage Guide](#-usage-guide)
+- [Future Enhancements](#-future-enhancements)
+- [Contact](#-contact)
 
+---
 
-Input Validation: Trims whitespace and strictly validates single uppercase letter formats.
-+1
+## 🎯 Overview
 
+The **Node Hierarchy Processor** is a zero-to-one full-stack prototype built to enable users to input complex node relationships and visually map out hierarchical trees. 
 
-Cycle Detection: Implements Depth First Search (DFS) to accurately detect cyclic relationships within node groups.
+This project was developed as part of the SRM / Bajaj Finserv Health (BFHL) Engineering Challenge to demonstrate the ability to construct RESTful APIs, implement advanced graph-theory algorithms (like cycle detection), and design responsive, modular React components suitable for an enterprise-grade dashboard.
 
+---
 
-Depth Calculation: Calculates the maximum depth (longest root-to-leaf path) for valid trees.
+## ✨ Key Features
 
+- **Robust Graph Processing API:** A `POST /bfhl` endpoint that natively parses arrays of node edge strings.
+- **Strict Algorithm Rules:** Five distinct processing phases with unique handlers:
+  - 🟢 `Validation`: Automatically trims inputs and filters out malformed strings (accepts only `$X->Y$`).
+  - 🔵 `Duplicates`: Identifies identical duplicate edges and isolates them into a separate array.
+  - 🟣 `Multi-Parent Conflicts`: Resolves diamond structures by accepting the first valid parent and gracefully discarding subsequent ones.
+  - 🟠 `Cycle Detection`: Deep DFS traversal that actively traces recursion stacks to detect cyclic relationships, returning empty trees and flags.
+  - 🔴 `Tie-Breakers`: Lexicographical sorting ensures deterministic root selection for pure cycles and tie-breaker scenarios in tree depths.
+- **Dynamic Configuration Panel:** A responsive frontend dashboard that updates its summary metrics based on the currently parsed API data.
+- **Visual Tree Canvas:** Completely custom recursive UI components to visually render nested tree structures without relying on heavy third-party graph libraries.
+- **Simulation Sandbox:** Built-in validation error toasts and a mock execution timeline terminal for `invalid_entries` and `duplicate_edges`.
 
-Edge Case Handling: Elegantly manages duplicate edges, multi-parent (diamond) structures, and tie-breakers (lexicographical sorting for roots).
-+1
+---
 
+## 🛠 Architecture & Tech Stack
 
-High Performance: Optimized to process inputs of up to 50 nodes in under 3 seconds.
+### Frontend Core
+* **React 18 & Next.js:** Chosen for fast hot-module replacement, modern build tooling, and seamless API route integration via the App Router.
+* **Lucide React:** Utilized as the core iconography engine to handle distinct visual flags for trees, cycles, and errors.
 
-🎨 Frontend UI
-Modern Design: A highly polished, responsive dark-mode interface built with Tailwind CSS.
+### Backend & State Management
+* **Next.js Route Handlers (`/api/bfhl`):** Selected over Express/FastAPI for a lightweight, boilerplate-free approach to managing the backend logic in the same repository.
+* **JavaScript Maps & Sets:** Used natively to maintain `O(V+E)` time complexity for efficient graph traversal and duplicate tracking.
 
+### Styling
+* **Tailwind CSS:** Used for rapid UI prototyping, ensuring a responsive, modern, and consistent dark-mode design system without writing custom CSS files.
 
-Interactive Input: Clean text-area for pasting JSON arrays with real-time error handling and validation.
-+1
+---
 
+## 📂 Project Structure
 
-Data Visualization: Displays the API response in a readable, structured format.
-
-🌲 Tree View: Recursive React components to visually display the generated node hierarchies.
-
-🔄 Cycle Alerts: Distinct visual indicators for cyclic groups.
-
-📊 Summary Dashboard: Metric cards displaying total trees, cycles, and the largest tree root.
-
-🚫 Invalid/Duplicate Tags: Warning-colored pill badges for invalid entries and duplicate edges.
-
-💻 Tech Stack
-
-Framework: Next.js (App Router) / Node.js 
-
-Frontend Library: React
-
-Styling: Tailwind CSS
-
-Icons: Lucide React
-
-
-Deployment: Vercel (Recommended) 
-
-📖 API Documentation
-Endpoint
-
-POST /bfhl 
-
-Headers
-
-Content-Type: application/json 
-
-Request Body
-JSON
-
-{
-  "data": ["A->B", "A->C", "B->D"] 
-}
-
-(Based on the expected payload format) 
-
-Response Schema
-JSON
-
-{
-  "user_id": "johndoe_17091999",
-  "email_id": "john.doe@college.edu",
-  "college_roll_number": "21CS1001",
-  "hierarchies": [
-    {
-      "root": "A",
-      "tree": { "A": { "B": { "D": {} }, "C": {} } },
-      "depth": 3
-    },
-    {
-      "root": "X",
-      "tree": {},
-      "has_cycle": true
-    }
-  ],
-  "invalid_entries": ["hello"],
-  "duplicate_edges": [],
-  "summary": {
-    "total_trees": 1,
-    "total_cycles": 1,
-    "largest_tree_root": "A"
-  }
-}
-
-(Based on the expected response format) 
-+3
-
-🚀 Getting Started
-Follow these steps to run the project locally.
-
-1. Clone the Repository
-Bash
-
-git clone https://github.com/your-username/bfhl-hierarchy-processor.git
-cd bfhl-hierarchy-processor
-2. Install Dependencies
-Bash
-
-npm install
-# or
-yarn install
-3. Configure Environment Variables
-Create a .env.local file in the root directory and update your credential placeholders if necessary:
-
-Code snippet
-
-USER_ID="johndoe_17091999"
-EMAIL_ID="john.doe@college.edu"
-ROLL_NUMBER="21CS1001"
-4. Run the Development Server
-Bash
-
-npm run dev
-# or
-yarn dev
-Open http://localhost:3000 in your browser to interact with the frontend.
-
-💾 Committing Your Changes
-Once you have made modifications to the codebase, you can directly stage, commit, and push your changes to your public GitHub repository  using the following commands:
-
-Bash
-
-# 1. Stage all your changes
-git add .
-
-# 2. Commit the changes with a descriptive message
-git commit -m "feat: update UI styling and fix cycle detection"
-
-# 3. Push the changes to your main branch on GitHub
-git push origin main
-🧠 Core Algorithm Highlights
-The processing logic is divided into strict phases:
-
-
-Sanitization: The input array is mapped to trim whitespaces.
-
-
-Routing: Regex checks validity for the X−>Y pattern. Failures go to invalid_entries.
-+1
-
-
-Graph Tracking: * Detects exact duplicates and pushes subsequent occurrences to duplicate_edges.
-
-Ensures a child only has one parent (discarding subsequent parents to break diamonds).
-
-
-Traversal: A DFS algorithm traverses the adjacency list, maintaining sets for global tracking and cycle detection to correctly populate the hierarchies array.
-
-📄 License
-This project is open-source and available under the MIT License.
+```text
+src/
+├── app/
+│   ├── api/bfhl/route.ts   # Core REST API endpoint and graph algorithm logic
+│   ├── globals.css         # Tailwind directives and base theme definitions
+│   ├── layout.tsx          # Main application layout and metadata wrapper
+│   └── page.tsx            # Frontend React DOM entry point and layout orchestration
+├── components/
+│   ├── ErrorBadges.tsx     # Warning UI definitions for invalid/duplicate entries
+│   ├── SummaryCards.tsx    # Dashboard metrics for total trees and cycles
+│   └── TreeVisualizer.tsx  # Recursive visual mapping for parsed hierarchies
+├── lib/
+│   └── graphEngine.ts      # Decoupled utility functions for DFS and parsing
+└── tailwind.config.ts      # Tailwind configuration and theme customization
